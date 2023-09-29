@@ -1,0 +1,68 @@
+﻿@model IEnumerable<cafeteria_joy.Models.Campus>
+
+@{
+    ViewData["Title"] = "Campus";
+}
+
+<div class="container w-75 p-3">
+    <div class="row pt-4">
+        <div class="col-6 d-flex align-items-center">
+            <i class="bi bi-building-fill h2" style="color: #1558a0;"></i>
+            <h2 class="ms-3">Campus</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-primary" asp-action="Create">
+                <i class="bi bi-plus-circle h5"></i>
+                &nbsp;
+                New
+            </a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="height: 60px">
+                    <td style="width: 40%;" class="align-middle">
+                        <a asp-action="Edit" asp-route-id="@item.CampusId">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </a>
+                    </td>
+                    <td style="width: 40%;" class="align-middle text-center">
+                        @if (item.Estado)
+                        {
+                            <i class="bi bi-check-square-fill text-success h3"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-x-square-fill text-danger h3"></i>
+                        }
+                    </td>
+                    <td style="width: 10%;" class="align-middle text-end">
+                        @* <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdCampus">
+                            <i class="bi bi-pencil-square h5"></i>
+                        </a> *@
+                        @* <a class="btn btn-light btn-outline-dark" asp-action="Details" asp-route-id="@item.IdCampus">
+                    <i class="bi bi-list-nested"></i>
+                    </a> *@
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdCampus">
+                            <i class="bi bi-trash3 h5"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
