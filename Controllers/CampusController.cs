@@ -35,7 +35,7 @@ namespace cafeteria_joy.Controllers
             }
 
             var campus = await _context.Campuses
-                .FirstOrDefaultAsync(m => m.IdCampus == id);
+                .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace cafeteria_joy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCampus,Descripcion,Estado")] Campus campus)
+        public async Task<IActionResult> Create([Bind("CampusId,Descripcion,Estado")] Campus campus)
         {
             if (ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace cafeteria_joy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCampus,Descripcion,Estado")] Campus campus)
+        public async Task<IActionResult> Edit(int id, [Bind("CampusId,Descripcion,Estado")] Campus campus)
         {
-            if (id != campus.IdCampus)
+            if (id != campus.CampusId)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace cafeteria_joy.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CampusExists(campus.IdCampus))
+                    if (!CampusExists(campus.CampusId))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace cafeteria_joy.Controllers
             }
 
             var campus = await _context.Campuses
-                .FirstOrDefaultAsync(m => m.IdCampus == id);
+                .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace cafeteria_joy.Controllers
 
         private bool CampusExists(int id)
         {
-          return (_context.Campuses?.Any(e => e.IdCampus == id)).GetValueOrDefault();
+          return (_context.Campuses?.Any(e => e.CampusId == id)).GetValueOrDefault();
         }
     }
 }
