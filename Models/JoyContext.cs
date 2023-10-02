@@ -17,15 +17,19 @@ public partial class JoyContext : DbContext
 
     public virtual DbSet<Articulo> Articulos { get; set; }
 
-    public virtual DbSet<Cafeterium> Cafeteria { get; set; }
+    public virtual DbSet<Cafeteria> Cafeteria { get; set; }
 
-    public virtual DbSet<Campus> Campuses { get; set; }
+    public virtual DbSet<Campus> Campus { get; set; }
 
     public virtual DbSet<Empleado> Empleados { get; set; }
+
+    public virtual DbSet<Facturacionarticulo> Facturacionarticulos { get; set; }
 
     public virtual DbSet<Marca> Marcas { get; set; }
 
     public virtual DbSet<Proveedore> Proveedores { get; set; }
+
+    public virtual DbSet<Tiposusuario> Tiposusuarios { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
@@ -76,6 +80,8 @@ public partial class JoyContext : DbContext
 
             entity.HasIndex(e => e.Campus, "campus");
 
+            entity.HasIndex(e => e.Encargado, "fk_encargado");
+
             entity.Property(e => e.CafeteriaId).HasColumnName("cafeteria_id");
             entity.Property(e => e.Campus).HasColumnName("campus");
             entity.Property(e => e.Descripcion)
@@ -88,6 +94,11 @@ public partial class JoyContext : DbContext
                 .HasForeignKey(d => d.Campus)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("cafeteria_ibfk_1");
+
+            entity.HasOne(d => d.EncargadoNavigation).WithMany(p => p.Cafeteria)
+                .HasForeignKey(d => d.Encargado)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_encargado");
         });
 
         modelBuilder.Entity<Campus>(entity =>
@@ -126,6 +137,51 @@ public partial class JoyContext : DbContext
                 .HasColumnName("tandaLabor");
         });
 
+        modelBuilder.Entity<Facturacionarticulo>(entity =>
+        {
+            entity.HasKey(e => e.FacturacionArticulosId).HasName("PRIMARY");
+
+            entity.ToTable("facturacionarticulos");
+
+            entity.HasIndex(e => e.Articulo, "articulo");
+
+            entity.HasIndex(e => e.Empleado, "empleado");
+
+            entity.HasIndex(e => e.Usuario, "usuario");
+
+            entity.Property(e => e.FacturacionArticulosId).HasColumnName("facturacion_articulos_id");
+            entity.Property(e => e.Articulo).HasColumnName("articulo");
+            entity.Property(e => e.Comentario)
+                .HasMaxLength(255)
+                .HasColumnName("comentario");
+            entity.Property(e => e.Empleado).HasColumnName("empleado");
+            entity.Property(e => e.Estado).HasColumnName("estado");
+            entity.Property(e => e.FechaVenta).HasColumnName("fechaVenta");
+            entity.Property(e => e.MontoArticulo)
+                .HasPrecision(10, 2)
+                .HasColumnName("montoArticulo");
+            entity.Property(e => e.NoFactura)
+                .HasMaxLength(15)
+                .HasColumnName("noFactura");
+            entity.Property(e => e.UnidadesVendidas).HasColumnName("unidadesVendidas");
+            entity.Property(e => e.Usuario).HasColumnName("usuario");
+
+            entity.HasOne(d => d.ArticuloNavigation).WithMany(p => p.Facturacionarticulos)
+                .HasForeignKey(d => d.Articulo)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("facturacionarticulos_ibfk_2");
+
+            entity.HasOne(d => d.EmpleadoNavigation).WithMany(p => p.Facturacionarticulos)
+                .HasForeignKey(d => d.Empleado)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("facturacionarticulos_ibfk_1");
+
+            entity.HasOne(d => d.UsuarioNavigation).WithMany(p => p.Facturacionarticulos)
+                .HasForeignKey(d => d.Usuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("facturacionarticulos_ibfk_3");
+        });
+
         modelBuilder.Entity<Marca>(entity =>
         {
             entity.HasKey(e => e.MarcaId).HasName("PRIMARY");
@@ -156,6 +212,19 @@ public partial class JoyContext : DbContext
                 .HasColumnName("rnc");
         });
 
+        modelBuilder.Entity<Tiposusuario>(entity =>
+        {
+            entity.HasKey(e => e.TipoUsuarioId).HasName("PRIMARY");
+
+            entity.ToTable("tiposusuarios");
+
+            entity.Property(e => e.TipoUsuarioId).HasColumnName("tipo_usuario_id");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(25)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Estado).HasColumnName("estado");
+        });
+
         modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.UsuariosId).HasName("PRIMARY");
@@ -177,6 +246,11 @@ public partial class JoyContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("nombre");
             entity.Property(e => e.TipoUsuario).HasColumnName("tipoUsuario");
+
+            entity.HasOne(d => d.TipoUsuarioNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.TipoUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("usuarios_ibfk_1");
         });
 
         OnModelCreatingPartial(modelBuilder);

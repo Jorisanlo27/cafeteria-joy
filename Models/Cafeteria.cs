@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace cafeteria_joy.Models;
 
-public partial class Cafeterium
+public partial class Cafeteria
 {
     public int CafeteriaId { get; set; }
 
@@ -16,4 +16,6 @@ public partial class Cafeterium
     public bool Estado { get; set; }
 
     public virtual Campus CampusNavigation { get; set; } = null!;
+
+    public virtual Empleado EncargadoNavigation { get; set; } = null!;
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace cafeteria_joy.Models;
 
-public partial class Campus
+public partial class Tiposusuario
 {
-    public int CampusId { get; set; }
+    public int TipoUsuarioId { get; set; }
 
     public string Descripcion { get; set; } = null!;
 
     public bool Estado { get; set; }
 
-    public virtual ICollection<Cafeteria> Cafeteria { get; set; } = new List<Cafeteria>();
+    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }
