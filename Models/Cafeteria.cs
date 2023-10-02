@@ -15,7 +15,7 @@ public partial class Cafeteria
 
     public bool Estado { get; set; }
 
-    public virtual Campus CampusNavigation { get; set; } = null!;
+    public virtual Campus? CampusNavigation { get; set; } = null!;
 
-    public virtual Empleado EncargadoNavigation { get; set; } = null!;
+    public virtual Empleado? EncargadoNavigation { get; set; } = null!;
 }
