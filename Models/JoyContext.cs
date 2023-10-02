@@ -72,7 +72,7 @@ public partial class JoyContext : DbContext
                 .HasConstraintName("articulos_ibfk_2");
         });
 
-        modelBuilder.Entity<Cafeterium>(entity =>
+        modelBuilder.Entity<Cafeteria>(entity =>
         {
             entity.HasKey(e => e.CafeteriaId).HasName("PRIMARY");
 
