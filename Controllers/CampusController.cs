@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using cafeteria_joy.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using cafeteria_joy.Models;
 
 namespace cafeteria_joy.Controllers
 {
@@ -21,20 +16,20 @@ namespace cafeteria_joy.Controllers
         // GET: Campus
         public async Task<IActionResult> Index()
         {
-              return _context.Campuses != null ? 
-                          View(await _context.Campuses.ToListAsync()) :
-                          Problem("Entity set 'JoyContext.Campuses'  is null.");
+              return _context.Campus != null ? 
+                          View(await _context.Campus.ToListAsync()) :
+                          Problem("Entity set 'JoyContext.Campus'  is null.");
         }
 
         // GET: Campus/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Campuses == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var campus = await _context.Campuses
+            var campus = await _context.Campus
                 .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
@@ -69,12 +64,12 @@ namespace cafeteria_joy.Controllers
         // GET: Campus/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Campuses == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var campus = await _context.Campuses.FindAsync(id);
+            var campus = await _context.Campus.FindAsync(id);
             if (campus == null)
             {
                 return NotFound();
@@ -120,12 +115,12 @@ namespace cafeteria_joy.Controllers
         // GET: Campus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Campuses == null)
+            if (id == null || _context.Campus == null)
             {
                 return NotFound();
             }
 
-            var campus = await _context.Campuses
+            var campus = await _context.Campus
                 .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
@@ -140,14 +135,14 @@ namespace cafeteria_joy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Campuses == null)
+            if (_context.Campus == null)
             {
-                return Problem("Entity set 'JoyContext.Campuses'  is null.");
+                return Problem("Entity set 'JoyContext.Campus'  is null.");
             }
-            var campus = await _context.Campuses.FindAsync(id);
+            var campus = await _context.Campus.FindAsync(id);
             if (campus != null)
             {
-                _context.Campuses.Remove(campus);
+                _context.Campus.Remove(campus);
             }
             
             await _context.SaveChangesAsync();
@@ -156,7 +151,7 @@ namespace cafeteria_joy.Controllers
 
         private bool CampusExists(int id)
         {
-          return (_context.Campuses?.Any(e => e.CampusId == id)).GetValueOrDefault();
+          return (_context.Campus?.Any(e => e.CampusId == id)).GetValueOrDefault();
         }
     }
 }
