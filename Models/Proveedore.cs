@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace cafeteria_joy.Models;
 
@@ -11,7 +12,8 @@ public partial class Proveedore
 
     public string Rnc { get; set; } = null!;
 
-    public DateOnly FechaRegistro { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime FechaRegistro { get; set; }
 
     public bool Estado { get; set; }
 
