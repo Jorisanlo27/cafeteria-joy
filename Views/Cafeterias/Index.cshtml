@@ -1,0 +1,74 @@
+﻿@model IEnumerable<cafeteria_joy.Models.Cafeteria>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container w-75 p-3">
+    <div class="row pt-4">
+        <div class="col-6 d-flex align-items-center">
+            <i class="bi bi-cup-hot-fill h2" style="color: #1558a0;"></i>
+            <h2 class="ms-3">Cafetería</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-primary" asp-action="Create">
+                <i class="bi bi-plus-circle h5"></i>
+                &nbsp;
+                New
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Campus
+                </th>
+                <th>
+                    Encargado
+                </th>
+                <th class="align-middle text-center">
+                    Estado
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CafeteriaId">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CampusNavigation.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EncargadoNavigation.Nombre)
+                    </td>
+                    <td class ="align-middle text-center">
+                        @if (item.Estado)
+                        {
+                            <i class="bi bi-check-square-fill text-success h3"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-x-square-fill text-danger h3"></i>
+                        }
+                    </td>
+                    <td style="width: 10%;" class="align-middle text-end">
+                        
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CafeteriaId">
+                            <i class="bi bi-trash3 h5"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
