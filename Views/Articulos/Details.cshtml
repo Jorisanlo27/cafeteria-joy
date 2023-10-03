@@ -1,0 +1,54 @@
+﻿@model cafeteria_joy.Models.Articulo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Articulo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Costo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Costo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Existencia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Existencia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class = "col-sm-2">
+            Marca
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MarcaNavigation.Descripcion)
+        </dd>
+        <dt class = "col-sm-2">
+            Proveedor
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProveedorNavigation.NombreComercial)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ArticuloId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
