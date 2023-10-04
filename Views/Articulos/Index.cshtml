@@ -1,0 +1,84 @@
+﻿@model IEnumerable<cafeteria_joy.Models.Articulo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6 d-flex align-items-center">
+            <i class="bi bi-journals h2" style="color: #1558a0;"></i>
+            <h2 class="ms-3">Articulos</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-primary" asp-action="Create">
+                <i class="bi bi-plus-circle h5"></i>
+                &nbsp;
+                New
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th class="align-middle text-center">
+                     Nombre               
+                </th>
+                <th class="align-middle text-center">
+                    @Html.DisplayNameFor(model => model.Costo)
+                </th>
+                <th class="align-middle text-center">
+                    @Html.DisplayNameFor(model => model.Existencia)
+                </th class="align-middle text-center">
+                <th class="align-middle text-center">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th class="align-middle text-center">
+                    Marca
+                </th>
+                <th class="align-middle text-center">
+                    Proveedor
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="height: 60px">
+                    <td style="width: 30%;" class="align-middle">
+                        <a asp-action="Edit" asp-route-id="@item.ArticuloId">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </a>
+                    </td>
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.Costo)
+                    </td>
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.Existencia)
+                    </td>
+                    <td class="align-middle text-center">
+                        @if (item.Estado)
+                        {
+                            <i class="bi bi-check-square-fill text-success h3"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-x-square-fill text-danger h3"></i>
+                        }
+                    </td>
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.MarcaNavigation.Descripcion)
+                    </td>
+                    <td class="align-middle text-center">
+                        @Html.DisplayFor(modelItem => item.ProveedorNavigation.NombreComercial)
+                    </td>
+                    <td class="align-middle text-end">
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ArticuloId">
+                            <i class="bi bi-trash3 h5"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
