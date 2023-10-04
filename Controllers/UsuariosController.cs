@@ -64,7 +64,7 @@ namespace cafeteria_joy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TipoUsuario"] = new SelectList(_context.Tiposusuarios, "TipoUsuarioId", "TipoUsuarioId", usuario.TipoUsuario);
+            ViewData["TipoUsuario"] = new SelectList(_context.Tiposusuarios, "TipoUsuarioId", "Descripcion", usuario.TipoUsuario);
             return View(usuario);
         }
 
@@ -117,7 +117,7 @@ namespace cafeteria_joy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TipoUsuario"] = new SelectList(_context.Tiposusuarios, "TipoUsuarioId", "descripcion", usuario.TipoUsuario);
+            ViewData["TipoUsuario"] = new SelectList(_context.Tiposusuarios, "TipoUsuarioId", "Descripcion", usuario.TipoUsuario);
             return View(usuario);
         }
 
