@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace cafeteria_joy.Models;
 
@@ -15,11 +16,12 @@ public partial class Usuario
 
     public decimal? LimiteCredito { get; set; }
 
-    public DateOnly FechaRegistro { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime FechaRegistro { get; set; }
 
     public bool Estado { get; set; }
 
     public virtual ICollection<Facturacionarticulo> Facturacionarticulos { get; set; } = new List<Facturacionarticulo>();
 
-    public virtual Tiposusuario TipoUsuarioNavigation { get; set; } = null!;
+    public virtual Tiposusuario? TipoUsuarioNavigation { get; set; } = null!;
 }
