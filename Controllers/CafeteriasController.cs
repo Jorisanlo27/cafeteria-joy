@@ -48,8 +48,8 @@ namespace cafeteria_joy.Controllers
         // GET: Cafeterias/Create
         public IActionResult Create()
         {
-            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "CampusId");
-            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "EmpleadosId");
+            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "Descripcion");
+            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace cafeteria_joy.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "CampusId", cafeteria.Campus);
-            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "EmpleadosId", cafeteria.Encargado);
+            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "Descripcion", cafeteria.Campus);
+            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre", cafeteria.Encargado);
             return View(cafeteria);
         }
 
@@ -84,8 +84,8 @@ namespace cafeteria_joy.Controllers
             {
                 return NotFound();
             }
-            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "CampusId", cafeteria.Campus);
-            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "EmpleadosId", cafeteria.Encargado);
+            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "Descripcion", cafeteria.Campus);
+            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre", cafeteria.Encargado);
             return View(cafeteria);
         }
 
@@ -121,8 +121,8 @@ namespace cafeteria_joy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "CampusId", cafeteria.Campus);
-            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "EmpleadosId", cafeteria.Encargado);
+            ViewData["Campus"] = new SelectList(_context.Campus, "CampusId", "Descripcion", cafeteria.Campus);
+            ViewData["Encargado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre", cafeteria.Encargado);
             return View(cafeteria);
         }
 
