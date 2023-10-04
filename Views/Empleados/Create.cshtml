@@ -1,0 +1,65 @@
+﻿@model cafeteria_joy.Models.Empleado
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear</h1>
+
+<h4>Empleado</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cedula" class="control-label">Cédula</label>
+                <input asp-for="Cedula" class="form-control" />
+                <span asp-validation-for="Cedula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TandaLabor" class="control-label">Tanda labor</label>
+                <select asp-for="TandaLabor" class="form-control">
+                    <option value="" disabled="" selected="">Selecciona la tanda</option>
+                    <option value="Matutina">Matutina</option>
+                    <option value="Vespertina">Vespertina</option>
+                </select>
+                <span asp-validation-for="TandaLabor" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="PorcientoComision" class="control-label">Porcentaje comisión</label>
+                <input asp-for="PorcientoComision" class="form-control" />
+                <span asp-validation-for="PorcientoComision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaIngreso" class="control-label">Fecha de ingreso</label>
+                <input asp-for="FechaIngreso" class="form-control" value=@DateTime.Today.ToString("yyyy-MM-dd") />
+                <span asp-validation-for="FechaIngreso" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

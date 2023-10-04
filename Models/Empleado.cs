@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace cafeteria_joy.Models;
 
@@ -15,7 +16,8 @@ public partial class Empleado
 
     public decimal? PorcientoComision { get; set; }
 
-    public DateOnly FechaIngreso { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime? FechaIngreso { get; set; }
 
     public bool Estado { get; set; }
 

@@ -1,0 +1,57 @@
+﻿@model cafeteria_joy.Models.Empleado
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3> Está seguro desea eliminar?</h3>
+<div>
+    <h4>Empleado</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            Cédula
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+        <dt class="col-sm-2">
+            Tanda labor
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TandaLabor)
+        </dd>
+        <dt class="col-sm-2">
+            Procentaje de comisión
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PorcientoComision)%
+        </dd>
+        <dt class="col-sm-2">
+            Fecha de ingreso
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaIngreso)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="EmpleadosId" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver a la lista</a>
+    </form>
+</div>
