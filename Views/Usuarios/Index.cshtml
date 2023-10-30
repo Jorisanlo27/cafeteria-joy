@@ -19,26 +19,26 @@
             </a>
         </div>
     </div>
-    <table class="table">
+    <table class="table datatable table-hover">
         <thead class="table-dark">
             <tr>
                 <th class="align-middle text-center">
                     @Html.DisplayNameFor(model => model.Nombre)
                 </th>
                 <th class="align-middle text-center">
-                    Cédula
+                    @Html.DisplayNameFor(model => model.Cedula)
                 </th>
                 <th class="align-middle text-center">
-                    Límite de crédito
+                    @Html.DisplayNameFor(model => model.LimiteCredito)
                 </th>
                 <th class="align-middle text-center">
-                    Fecha de registro
+                    @Html.DisplayNameFor(model => model.FechaRegistro)
                 </th>
                 <th class="align-middle text-center">
                     @Html.DisplayNameFor(model => model.Estado)
                 </th>
                 <th class="align-middle text-center">
-                    Tipo usuario
+                    @Html.DisplayNameFor(model => model.TipoUsuario)
                 </th>
                 <th></th>
             </tr>
