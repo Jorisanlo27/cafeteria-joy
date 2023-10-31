@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cafeteria_joy.Validators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,6 +12,7 @@ public partial class Proveedore
     [RegularExpression(@"^[^@#$*]+$", ErrorMessage = "El campo no puede contener caracteres especiales como @, #, $, *")]
     public string NombreComercial { get; set; } = null!;
 
+    [RncValidator]
     public string Rnc { get; set; } = null!;
 
     [DataType(DataType.Date)]
