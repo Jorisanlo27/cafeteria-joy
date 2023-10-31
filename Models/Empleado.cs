@@ -13,7 +13,7 @@ public partial class Empleado
     public string Nombre { get; set; } = null!;
 
     [StringLength(11, MinimumLength = 11, ErrorMessage = "The field Cédula must be a string with a length of 11.")]
-    [CedulaValidator(nameof(Usuario))]
+    [CedulaValidator(nameof(Empleado))]
     [Display(Name = "Cédula")]
     public string Cedula { get; set; } = null!;
 
