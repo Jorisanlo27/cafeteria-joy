@@ -19,68 +19,70 @@
             </a>
         </div>
     </div>
-    <table class="table datatable table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th class="align-middle text-center">
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th class="align-middle text-center">
-                    @Html.DisplayNameFor(model => model.Cedula)
-                </th>
-                <th class="align-middle text-center">
-                    @Html.DisplayNameFor(model => model.LimiteCredito)
-                </th>
-                <th class="align-middle text-center">
-                    @Html.DisplayNameFor(model => model.FechaRegistro)
-                </th>
-                <th class="align-middle text-center">
-                    @Html.DisplayNameFor(model => model.Estado)
-                </th>
-                <th class="align-middle text-center">
-                    @Html.DisplayNameFor(model => model.TipoUsuario)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr style="height: 60px">
-                    <td style="width: 30%;" class="align-middle">
-                        <a asp-action="Edit" asp-route-id="@item.UsuariosId">
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </a>
-                    </td>
-                    <td class="align-middle text-center">
-                        @Html.DisplayFor(modelItem => item.Cedula)
-                    </td>
-                    <td class="align-middle text-center">
-                        @Html.DisplayFor(modelItem => item.LimiteCredito)
-                    </td>
-                    <td class="align-middle text-center">
-                        @Html.DisplayFor(modelItem => item.FechaRegistro)
-                    </td>
-                    <td class="align-middle text-center">
-                        @if (item.Estado)
-                        {
-                            <i class="bi bi-check-square-fill text-success h3"></i>
-                        }
-                        else
-                        {
-                            <i class="bi bi-x-square-fill text-danger h3"></i>
-                        }
-                    </td>
-                    <td class="align-middle text-center">
-                        @Html.DisplayFor(modelItem => item.TipoUsuarioNavigation.Descripcion)
-                    </td>
-                    <td class="align-middle text-end">
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UsuariosId">
-                            <i class="bi bi-trash3 h5"></i>
-                        </a>
-                    </td>
+    <div class="card p-4">
+        <table class="table datatable">
+            <thead class="table-dark">
+                <tr>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.Cedula)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.LimiteCredito)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.FechaRegistro)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.TipoUsuario)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="height: 60px">
+                        <td style="width: 30%;" class="align-middle">
+                            <a asp-action="Edit" asp-route-id="@item.UsuariosId">
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </a>
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.Cedula)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.LimiteCredito)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.FechaRegistro)
+                        </td>
+                        <td class="align-middle text-center">
+                            @if (item.Estado)
+                            {
+                                <i class="bi bi-check-square-fill text-success h3"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-square-fill text-danger h3"></i>
+                            }
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.TipoUsuarioNavigation.Descripcion)
+                        </td>
+                        <td class="align-middle text-end">
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.UsuariosId">
+                                <i class="bi bi-trash3 h5"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

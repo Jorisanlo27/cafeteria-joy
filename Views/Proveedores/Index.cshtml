@@ -18,57 +18,60 @@
             </a>
         </div>
     </div>
-<table class="table">
-        <thead class="table-dark">
-        <tr>
-            <th>
-               Nombre Comercial
-            </th>
-            <th>
-               RNC
-            </th>
-            <th>
-               Fecha Registro
-            </th>
-                <th class="align-middle text-center">
-                Estado
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-                <tr style="height: 60px">
-                    <td class="align-middle">
-                        <a asp-action="Edit" asp-route-id="@item.ProveedoresId">
-                            @Html.DisplayFor(modelItem => item.NombreComercial)
-                        </a>
-            </td>
-                    <td  class="align-middle">
-                @Html.DisplayFor(modelItem => item.Rnc)
-            </td>
-                    <td  class="align-middle">
-                @Html.DisplayFor(modelItem => item.FechaRegistro)
-            </td>
-            <td class ="align-middle text-center">
-                        @if (item.Estado)
-                        {
-                            <i class="bi bi-check-square-fill text-success h3"></i>
-                        }
-                        else
-                        {
-                            <i class="bi bi-x-square-fill text-danger h3"></i>
-                        }
-            </td>
-            
-                    <td style="width: 10%;" class="align-middle text-end">
+    <div class="card p-4">
+        <table class="table datatable">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        Nombre Comercial
+                    </th>
+                    <th>
+                        RNC
+                    </th>
+                    <th>
+                        Fecha Registro
+                    </th>
+                    <th class="align-middle text-center">
+                        Estado
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="height: 60px">
+                        <td class="align-middle">
+                            <a asp-action="Edit" asp-route-id="@item.ProveedoresId">
+                                @Html.DisplayFor(modelItem => item.NombreComercial)
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Rnc)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.FechaRegistro)
+                        </td>
+                        <td class="align-middle text-center">
+                            @if (item.Estado)
+                            {
+                                <i class="bi bi-check-square-fill text-success h3"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-square-fill text-danger h3"></i>
+                            }
+                        </td>
 
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProveedoresId">
-                            <i class="bi bi-trash3 h5"></i>
-                        </a>
-                    </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <td style="width: 10%;" class="align-middle text-end">
+
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProveedoresId">
+                                <i class="bi bi-trash3 h5"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
