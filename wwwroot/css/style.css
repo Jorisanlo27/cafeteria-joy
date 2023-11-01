@@ -684,7 +684,6 @@ h6 {
     .sidebar-nav .nav-link {
         display: flex;
         align-items: center;
-        font-size: 15px;
         font-weight: 600;
         transition: 0.3;
         padding: 10px 15px;
@@ -707,12 +706,12 @@ h6 {
             }
 
         .sidebar-nav .nav-link:hover {
-            color: #4154f1;
-            background: #f6f9ff;
+            color: white;
+            background: #e09655;
         }
 
             .sidebar-nav .nav-link:hover i {
-                color: #4154f1;
+                color: white;
             }
 
         .sidebar-nav .nav-link .bi-chevron-down {
@@ -828,6 +827,11 @@ h6 {
 .dashboard .revenue-card .card-icon {
     color: #2eca6a;
     background: #e0f8e9;
+}
+
+.dashboard .employees-card .card-icon {
+    color: #d8db36;
+    background: #fdffbf;
 }
 
 .dashboard .customers-card .card-icon {
