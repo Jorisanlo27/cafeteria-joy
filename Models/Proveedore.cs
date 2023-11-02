@@ -12,7 +12,8 @@ public partial class Proveedore
     [RegularExpression(@"^[^@#$*]+$", ErrorMessage = "El campo no puede contener caracteres especiales como @, #, $, *")]
     public string NombreComercial { get; set; } = null!;
 
-    [RncValidator]
+    [StringLength(9, MinimumLength = 9, ErrorMessage = "The field RNC must be a string with a length of 9.")]
+    [RncValidator(nameof(Proveedore), nameof(ProveedoresId))]
     public string Rnc { get; set; } = null!;
 
     [DataType(DataType.Date)]

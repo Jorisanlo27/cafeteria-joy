@@ -1,33 +1,50 @@
 ﻿using cafeteria_joy.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text.Json;
 
 namespace cafeteria_joy.Validators
 {
     public class RncValidatorAttribute : ValidationAttribute
     {
-        private JoyContext _context;
+        private string propertyName { get; set; }
+        private JoyContext? _context;
+
+        public RncValidatorAttribute(string modelName, string propertyName)
+        {
+            this.propertyName = propertyName;
+        }
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             if (value is not null)
             {
 
-
-                _context = (JoyContext)validationContext.GetService(typeof(JoyContext));
-
-
-                var exist = _context.Proveedores.FirstOrDefaultAsync(e => e.Rnc == value.ToString()).Result;
+                _context = validationContext.GetService(typeof(JoyContext)) as JoyContext;
 
 
-                //Verificar el RNC no esté registrado en la base de datos
+                //Verificar el RNC esté registrado en la base de datos
+
+                var exist = _context.Proveedores
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(e => e.Rnc == value.ToString())
+                    .Result;
+
+
                 if (exist is not null)
                 {
-                    return new ValidationResult("RNC ya registrado");
-                }
 
-                //Validacion cedula en local,en caso de no comunicacion con la API de la Junta central
+                    PropertyInfo? modelPropertyInfo = validationContext.ObjectType.GetProperty(propertyName);
+
+                    var idProperty = modelPropertyInfo.GetValue(validationContext.ObjectInstance);
+
+                    if (exist.ProveedoresId != (int)idProperty)
+                    {
+                        return new ValidationResult("RNC ya registrado");
+                    }
+                }
+                //Validacion del RNC
 
                 if (LocalRncValidation(value.ToString()) == true)
                 {
@@ -38,7 +55,6 @@ namespace cafeteria_joy.Validators
             }
             return new ValidationResult("RNC no válido");
         }
-
 
         public bool LocalRncValidation(string rnc)
         {
@@ -52,7 +68,7 @@ namespace cafeteria_joy.Validators
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    //para verificar si es un dígito o no
+                    //Verifica si es un número
                     if (!char.IsDigit(rnc[i]))
                         return false;
 
@@ -84,5 +100,5 @@ namespace cafeteria_joy.Validators
         }
 
     }
-}
 
+}
