@@ -1,19 +1,26 @@
 ﻿using cafeteria_joy.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text.Json;
 
 namespace cafeteria_joy.Validators
 {
     public class CedulaValidatorAttribute : ValidationAttribute
     {
-        private JoyContext _context;
-        private string tableName;
+        private JoyContext? _context;
+        private Empleado? empleado;
+        private Usuario? usuario;
+        private string modelUsuario;
+
+        private string ModelName { get; set; }
+        private string PropertyName { get; set; }
 
 
-        public CedulaValidatorAttribute(string tableName)
+        public CedulaValidatorAttribute(string modelName, string propertyName)
         {
-            this.tableName = tableName;
+            ModelName = modelName;
+            PropertyName = propertyName;
         }
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -23,33 +30,69 @@ namespace cafeteria_joy.Validators
                 bool isDuplicated = false;
 
 
-                _context = (JoyContext)validationContext.GetService(typeof(JoyContext));
+                _context = validationContext.GetService(typeof(JoyContext)) as JoyContext;
 
-                switch (tableName)
+                //Verificar la cedula esté registrada en la base de datos
+
+
+                switch (ModelName)
                 {
 
                     case "Usuario":
 
-                        var userExist = _context.Usuarios.FirstOrDefaultAsync(u => u.Cedula == value.ToString()).Result;
-                        if (userExist is not null)
-                            isDuplicated = true;
+                        usuario = _context.Usuarios.AsNoTracking().FirstOrDefaultAsync(u => u.Cedula == value.ToString()).Result;
+                        if (usuario is not null)
+                            modelUsuario = "Usuario";
+                        isDuplicated = true;
+
                         break;
                     case "Empleado":
 
-                        var employeeExist = _context.Empleados.FirstOrDefaultAsync(u => u.Cedula == value.ToString()).Result;
-                        if (employeeExist is not null)
-                            isDuplicated = true;
+                        empleado = _context.Empleados.AsNoTracking().FirstOrDefaultAsync(u => u.Cedula == value.ToString()).Result;
+                        if (empleado is not null)
+                            modelUsuario = "Empleado";
+                        isDuplicated = true;
                         break;
 
                 }
 
-                //Verificar la cedula no esté registrada en la base de datos
+                
+
                 if (isDuplicated == true)
                 {
-                    return new ValidationResult("Cédula ya registrada");
+
+                    if (modelUsuario == "Empleado" && usuario is not null)
+                    {
+
+                        PropertyInfo? modelPropertyInfo = validationContext.ObjectType.GetProperty(PropertyName);
+
+                        var idProperty = modelPropertyInfo.GetValue(validationContext.ObjectInstance);
+
+                        if (usuario.UsuariosId != (int)idProperty)
+                        {
+                            return new ValidationResult("Cédula ya registrada");
+                        }
+                    }
+
+                    if (modelUsuario == "Usuario" && empleado is not null)
+                    {
+
+                        PropertyInfo? modelPropertyInfo = validationContext.ObjectType.GetProperty(PropertyName);
+
+                        var idProperty = modelPropertyInfo.GetValue(validationContext.ObjectInstance);
+
+                        if (empleado.EmpleadosId != (int)idProperty)
+                        {
+                            return new ValidationResult("Cédula ya registrada");
+                        }
+                    }
+
                 }
 
-                //Verificar la cédula es valida , mediante la API de la Junta Central
+
+
+
+                //Verificar la cédula es valida, mediante la API de la Junta Central
 
                 var client = new HttpClient();
                 var uri = new Uri($"https://api.digital.gob.do/v3/cedulas/{value.ToString()}/validate");
@@ -68,7 +111,6 @@ namespace cafeteria_joy.Validators
                     return new ValidationResult("Cédula no válida");
 
                 }
-            }
 
             //Validacion cedula en local,en caso de no comunicación con la API del
             //"portal de APIs Dominicano"
@@ -79,6 +121,7 @@ namespace cafeteria_joy.Validators
 
             }
 
+            }
             return new ValidationResult("Cédula no válida");
         }
 

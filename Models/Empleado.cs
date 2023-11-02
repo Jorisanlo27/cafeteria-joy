@@ -13,14 +13,14 @@ public partial class Empleado
     public string Nombre { get; set; } = null!;
 
     [StringLength(11, MinimumLength = 11, ErrorMessage = "The field Cédula must be a string with a length of 11.")]
-    [CedulaValidator(nameof(Empleado))]
+    [CedulaValidator(nameof(Usuario), nameof(EmpleadosId))]
     [Display(Name = "Cédula")]
     public string Cedula { get; set; } = null!;
 
     [RegularExpression(@"^[^@#$*]+$", ErrorMessage = "El campo no puede contener caracteres especiales como @, #, $, *")]
     public string TandaLabor { get; set; } = null!;
 
-    [Range(0, double.MaxValue, ErrorMessage = "El porcentaje de comisión no puede ser negativo.")]
+    [Range(0, 100, ErrorMessage = "El porcentaje de comisión no puede ser negativo ni mayor a 100%.")]
     public decimal? PorcientoComision { get; set; }
 
     [DataType(DataType.Date)]
