@@ -25,6 +25,8 @@ public partial class JoyContext : DbContext
 
     public virtual DbSet<Facturacionarticulo> Facturacionarticulos { get; set; }
 
+    public virtual DbSet<Lineafactura> Lineafacturas { get; set; }
+
     public virtual DbSet<Marca> Marcas { get; set; }
 
     public virtual DbSet<Proveedore> Proveedores { get; set; }
@@ -143,43 +145,60 @@ public partial class JoyContext : DbContext
 
             entity.ToTable("facturacionarticulos");
 
-            entity.HasIndex(e => e.Articulo, "articulo");
-
             entity.HasIndex(e => e.Empleado, "empleado");
 
-            entity.HasIndex(e => e.Usuario, "usuario");
-
             entity.Property(e => e.FacturacionArticulosId).HasColumnName("facturacion_articulos_id");
-            entity.Property(e => e.Articulo).HasColumnName("articulo");
             entity.Property(e => e.Comentario)
                 .HasMaxLength(255)
                 .HasColumnName("comentario");
             entity.Property(e => e.Empleado).HasColumnName("empleado");
             entity.Property(e => e.Estado).HasColumnName("estado");
             entity.Property(e => e.FechaVenta).HasColumnName("fechaVenta");
-            entity.Property(e => e.MontoArticulo)
+            entity.Property(e => e.Total)
                 .HasPrecision(10, 2)
-                .HasColumnName("montoArticulo");
+                .HasDefaultValueSql("'0.00'")
+                .HasColumnName("montoAPagar");
             entity.Property(e => e.NoFactura)
                 .HasMaxLength(15)
                 .HasColumnName("noFactura");
-            entity.Property(e => e.UnidadesVendidas).HasColumnName("unidadesVendidas");
-            entity.Property(e => e.Usuario).HasColumnName("usuario");
-
-            entity.HasOne(d => d.ArticuloNavigation).WithMany(p => p.Facturacionarticulos)
-                .HasForeignKey(d => d.Articulo)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("facturacionarticulos_ibfk_2");
+            entity.Property(e => e.Cliente)
+                .HasMaxLength(255)
+                .HasColumnName("cliente");
 
             entity.HasOne(d => d.EmpleadoNavigation).WithMany(p => p.Facturacionarticulos)
                 .HasForeignKey(d => d.Empleado)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("facturacionarticulos_ibfk_1");
 
-            entity.HasOne(d => d.UsuarioNavigation).WithMany(p => p.Facturacionarticulos)
-                .HasForeignKey(d => d.Usuario)
+        });
+
+        modelBuilder.Entity<Lineafactura>(entity =>
+        {
+            entity.HasKey(e => e.LineaFacturaId).HasName("PRIMARY");
+
+            entity.ToTable("lineafactura");
+
+            entity.HasIndex(e => e.ArticuloId, "articulo_id");
+
+            entity.HasIndex(e => e.FacturacionArticulosId, "facturacion_articulos_id");
+
+            entity.Property(e => e.LineaFacturaId).HasColumnName("linea_factura_id");
+            entity.Property(e => e.ArticuloId).HasColumnName("articulo_id");
+            entity.Property(e => e.FacturacionArticulosId).HasColumnName("facturacion_articulos_id");
+            entity.Property(e => e.Total)
+                .HasPrecision(10, 2)
+                .HasColumnName("total");
+            entity.Property(e => e.UnidadesVendidas).HasColumnName("unidadesVendidas");
+
+            entity.HasOne(d => d.Articulo).WithMany(p => p.Lineafacturas)
+                .HasForeignKey(d => d.ArticuloId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("facturacionarticulos_ibfk_3");
+                .HasConstraintName("lineafactura_ibfk_2");
+
+            entity.HasOne(d => d.FacturacionArticulos).WithMany(p => p.Lineafacturas)
+                .HasForeignKey(d => d.FacturacionArticulosId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("lineafactura_ibfk_1");
         });
 
         modelBuilder.Entity<Marca>(entity =>
