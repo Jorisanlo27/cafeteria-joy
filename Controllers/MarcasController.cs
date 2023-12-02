@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cafeteria_joy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cafeteria_joy.Controllers
 {
+    [Authorize(Roles = "Admin, Inventario")]
     public class MarcasController : Controller
     {
         private readonly JoyContext _context;

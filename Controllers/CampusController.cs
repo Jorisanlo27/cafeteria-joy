@@ -1,9 +1,11 @@
 ﻿using cafeteria_joy.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace cafeteria_joy.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CampusController : Controller
     {
         private readonly JoyContext _context;
