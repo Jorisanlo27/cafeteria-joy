@@ -157,7 +157,7 @@ public partial class JoyContext : DbContext
             entity.Property(e => e.Total)
                 .HasPrecision(10, 2)
                 .HasDefaultValueSql("'0.00'")
-                .HasColumnName("montoAPagar");
+                .HasColumnName("total");
             entity.Property(e => e.NoFactura)
                 .HasMaxLength(15)
                 .HasColumnName("noFactura");
