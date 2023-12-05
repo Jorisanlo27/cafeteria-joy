@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cafeteria_joy.Models;
+using Rotativa.AspNetCore;
 
 namespace cafeteria_joy.Controllers
 {
@@ -17,7 +18,18 @@ namespace cafeteria_joy.Controllers
         {
             _context = context;
         }
+        public IActionResult ImprimirVenta()
+        {
+            var modelo = _context.Facturacionarticulos
+               .Include(f => f.EmpleadoNavigation);
 
+            return new ViewAsPdf("ImprimirVenta", modelo)
+            {
+                FileName = $"Venta.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
+        }
         // GET: Facturacionarticulos
         public async Task<IActionResult> Index()
         {
