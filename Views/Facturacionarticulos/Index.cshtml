@@ -27,22 +27,22 @@
                         @Html.DisplayNameFor(model => model.NoFactura)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.EmpleadoNavigation)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Cliente)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaVenta)
+                        @Html.DisplayNameFor(model => model.Total)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Total)
+                        @Html.DisplayNameFor(model => model.FechaVenta)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Comentario)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Estado)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmpleadoNavigation)
                     </th>
                     <th></th>
                 </tr>
@@ -61,10 +61,13 @@
                             @Html.DisplayFor(modelItem => item.Cliente)
                         </td>
                         <td class="align-middle text-center">
-                            @Html.DisplayFor(modelItem => item.FechaVenta)
+                            @Html.DisplayFor(modelItem => item.EmpleadoNavigation.Nombre)
                         </td>
                         <td class="align-middle text-center">
                             @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.FechaVenta)
                         </td>
                         <td class="align-middle text-center">
                             @Html.DisplayFor(modelItem => item.Comentario)
@@ -78,9 +81,6 @@
                             {
                                 <i class="bi bi-x-square-fill text-danger h3"></i>
                             }
-                        </td>
-                        <td class="align-middle text-center">
-                            @Html.DisplayFor(modelItem => item.EmpleadoNavigation.Nombre)
                         </td>
                         <td class="align-middle text-end">
                             <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FacturacionArticulosId">

@@ -4,57 +4,109 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalles</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Detalles</h1>
+    <div>
+        <a class="btn btn-outline-primary" asp-controller="Lineafacturas" asp-action="Create">
+            <i class="bi bi-plus-circle h5"></i>
+            &nbsp;
+            Agregar Articulo
+        </a>
+    </div>
+</div>
+<div class="d-flex">
+    <div style="width: 20%; margin-right: 4%">
+        <h4>Facturacion Artículo</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.NoFactura)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.NoFactura)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.EmpleadoNavigation)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.EmpleadoNavigation.Nombre)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Cliente)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Cliente)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.FechaVenta)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.FechaVenta)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Comentario)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Comentario)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+        </dl>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.FacturacionArticulosId">Edit</a> |
+            <a asp-action="Index">Volver a la lista</a>
+        </div>
+    </div>
+    <div style="width: 100%; min-height: 300px; margin:0 auto; background-color: white; box-shadow: 1px 1px 40px 1px gray; border-radius: 20px; display: flex; align-items: center; padding: 3%;">
+        <div class="d-flex align-items-center justify-content-between" style="height: 100%;">
+            <img src="~/img/java.png" alt="" style="width: 80px" ; height="100px;">
+        </div>
+        <div style="width: 2px; height: 150px; margin: 0 5%; border: 1px solid black;"></div>
+        <div class="w-100 d-flex justify-content-center align-items-center">
+            <table style="width: 100%;">
+                <tr style="font-size: 1.3em; font-weight: bold; background: lightgray;" class="text-center">
+                    <td>Articulo</td>
+                    <td>Cantidad</td>
+                    <td>Precio</td>
+                </tr>
+                @foreach (var item in Model.Lineafacturas)
+                {
+                    <tr class="text-center border-bottom border-secondary">
+                        <td>@item.Articulo.Descripcion</td>
+                        <td>@item.UnidadesVendidas</td>
+                        <td>$@item.Articulo.Costo</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div style="width: 2px; height: 100%; margin: 0 3%; border: 1px solid black;"></div>
+        <div style="width: 10%;">
+            <dl>
+                <dt>
+                    Subtotal:
+                </dt>
+                <dd>
+                    $@Html.DisplayFor(model => model.Total)
+                </dd>
+                <dt>
+                    Ley:
+                </dt>
+                <dd>
+                    18%
+                </dd>
+                <dt>
+                    Total:
+                </dt>
+                <dd>
+                    $@(Model.Total + Model.Total / 100 * 18)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
 
-<div>
-    <h4>Facturacion Artículo</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NoFactura)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NoFactura)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cliente)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaVenta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaVenta)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Total)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Comentario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Comentario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmpleadoNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmpleadoNavigation.Nombre)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.FacturacionArticulosId">Edit</a> |
-    <a asp-action="Index">Volver a la lista</a>
-</div>
+
