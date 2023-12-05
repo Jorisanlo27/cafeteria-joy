@@ -64,7 +64,8 @@ namespace cafeteria_joy.Controllers
             {
                 _context.Add(lineafactura);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToRoute(new { controller = "facturacionarticulos", action = "Details", id = lineafactura.FacturacionArticulosId });
+                //return RedirectToAction(nameof(Index));
             }
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion", lineafactura.ArticuloId);
             ViewData["FacturacionArticulosId"] = new SelectList(_context.Facturacionarticulos, "FacturacionArticulosId", "NoFactura", lineafactura.FacturacionArticulosId);
@@ -160,14 +161,14 @@ namespace cafeteria_joy.Controllers
             {
                 _context.Lineafacturas.Remove(lineafactura);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LineafacturaExists(int id)
         {
-          return (_context.Lineafacturas?.Any(e => e.LineaFacturaId == id)).GetValueOrDefault();
+            return (_context.Lineafacturas?.Any(e => e.LineaFacturaId == id)).GetValueOrDefault();
         }
     }
 }
