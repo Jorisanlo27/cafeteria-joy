@@ -39,8 +39,5 @@ public partial class Usuario
     public DateTime FechaRegistro { get; set; }
 
     public bool Estado { get; set; }
-
-    public virtual ICollection<Facturacionarticulo> Facturacionarticulos { get; set; } = new List<Facturacionarticulo>();
-
     public virtual Tiposusuario? TipoUsuarioNavigation { get; set; } = null!;
 }

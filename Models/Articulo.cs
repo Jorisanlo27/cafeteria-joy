@@ -25,8 +25,6 @@ public partial class Articulo
 
     public bool Estado { get; set; }
 
-    public virtual ICollection<Facturacionarticulo> Facturacionarticulos { get; set; } = new List<Facturacionarticulo>();
-
     public virtual ICollection<Lineafactura> Lineafacturas { get; set; } = new List<Lineafactura>();
 
     public virtual Marca? MarcaNavigation { get; set; }
