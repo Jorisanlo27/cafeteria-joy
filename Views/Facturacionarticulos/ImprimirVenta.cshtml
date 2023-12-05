@@ -1,0 +1,92 @@
+﻿@model IEnumerable<cafeteria_joy.Models.Facturacionarticulo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ImprimirVenta</title>
+   
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <table class="table datatable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoFactura)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaVenta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comentario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmpleadoNavigation)
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="height: 60px">
+                        <td style="width: 30%;" class="align-middle">
+
+                            <a asp-action="Edit" asp-route-id="@item.FacturacionArticulosId">
+                                @Html.DisplayFor(modelItem => item.NoFactura)
+                            </a>
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.Cliente)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.FechaVenta)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        </td>
+                        <td class="align-middle text-center">
+                            @if (item.Estado)
+                            {
+                                <i class="bi bi-check-square-fill text-success h3"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-square-fill text-danger h3"></i>
+                            }
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.EmpleadoNavigation.Nombre)
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+                
+                
+        
+
+    </div>
+
+</body>
+</html>
