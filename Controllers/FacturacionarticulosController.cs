@@ -35,6 +35,8 @@ namespace cafeteria_joy.Controllers
 
             var facturacionarticulo = await _context.Facturacionarticulos
                 .Include(f => f.EmpleadoNavigation)
+                .Include(f => f.Lineafacturas)
+                .ThenInclude(f => f.Articulo)
                 .FirstOrDefaultAsync(m => m.FacturacionArticulosId == id);
             if (facturacionarticulo == null)
             {
