@@ -8,7 +8,7 @@ public partial class Facturacionarticulo
 {
     public int FacturacionArticulosId { get; set; }
 
-    public string NoFactura { get; set; } = null!;
+    public string? NoFactura { get; set; } 
 
     [RegularExpression(@"^[^@#$*]+$", ErrorMessage = "El campo no puede contener caracteres especiales como @, #, $, *")]
     public int Empleado { get; set; }
@@ -16,8 +16,10 @@ public partial class Facturacionarticulo
     [RegularExpression(@"^[^@#$*]+$", ErrorMessage = "El campo no puede contener caracteres especiales como @, #, $, *")]
     public string Cliente { get; set; }
 
+    [Display(Name = "Fecha de venta")]
+
     [Range(typeof(DateTime), "10/1/2023", "12/31/9999", ErrorMessage = "La fecha no puede ser anterior al 1 de octubre de 2023.")]
-    public DateOnly FechaVenta { get; set; }
+    public DateTime FechaVenta { get; set; }
 
     [Range(0, double.MaxValue, ErrorMessage = "El monnto no puede ser negativo.")]
     public decimal Total { get; set; }
@@ -27,9 +29,10 @@ public partial class Facturacionarticulo
 
     public bool Estado { get; set; }
 
-    public virtual Articulo ArticuloNavigation { get; set; } = null!;
 
-    public virtual Empleado EmpleadoNavigation { get; set; } = null!;
+    [Display(Name = "Empleado")]
+
+    public virtual Empleado? EmpleadoNavigation { get; set; } = null!;
 
     public virtual ICollection<Lineafactura> Lineafacturas { get; set; } = new List<Lineafactura>();
 }

@@ -266,6 +266,16 @@
                         <span>Proveedores</span>
                     </a>
                 </li>
+
+            }
+            @if (User.IsInRole("Admin") || User.IsInRole("Cajero"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="/facturacionarticulos">
+                        <i class="bi bi-receipt" style="color: #1558a0;"></i>
+                        <span>Facturación artículos</span>
+                    </a>
+                </li>
             }
             @if (User.IsInRole("Admin") || User.IsInRole("Inventario") || User.IsInRole("Cajero"))
             {
