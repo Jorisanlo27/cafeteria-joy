@@ -14,10 +14,10 @@ public partial class Facturacionarticulo
     public int Empleado { get; set; }
 
     [RegularExpression(@"^[^@#$*]+$", ErrorMessage = "El campo no puede contener caracteres especiales como @, #, $, *")]
-    public string Cliente { get; set; }
+    public string? Cliente { get; set; }
 
     [Display(Name = "Fecha de venta")]
-
+    [DataType(DataType.Date)]
     [Range(typeof(DateTime), "10/1/2023", "12/31/9999", ErrorMessage = "La fecha no puede ser anterior al 1 de octubre de 2023.")]
     public DateTime FechaVenta { get; set; }
 
