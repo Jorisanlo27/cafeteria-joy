@@ -1,0 +1,45 @@
+﻿@model cafeteria_joy.Models.Lineafactura
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar</h1>
+
+<h3> Está seguro desea eliminar?</h3>
+<div>
+    <h4>Linea factura</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnidadesVendidas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UnidadesVendidas)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Articulo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Articulo.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FacturacionArticulos)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FacturacionArticulos.NoFactura)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="LineaFacturaId" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver a la lista"</a>
+    </form>
+</div>

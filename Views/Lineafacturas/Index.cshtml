@@ -1,0 +1,69 @@
+﻿@model IEnumerable<cafeteria_joy.Models.Lineafactura>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6 d-flex align-items-center">
+            <i class="bi bi-receipt-cutoff h2" style="color: #1558a0;"></i>
+            <h2 class="ms-3">Línea factura</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-outline-primary" asp-action="Create">
+                <i class="bi bi-plus-circle h5"></i>
+                &nbsp;
+                New
+            </a>
+        </div>
+    </div>
+    <div class="card p-4">
+        <table class="table datatable">
+            <thead class="table-dark">
+                <tr>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.Articulo)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.UnidadesVendidas)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th class="align-middle text-center">
+                        @Html.DisplayNameFor(model => model.FacturacionArticulos)
+
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="height: 60px">
+                        <td style="width: 30%;" class="align-middle">
+                            <a asp-action="Edit" asp-route-id="@item.LineaFacturaId">
+                                @Html.DisplayFor(modelItem => item.Articulo.Descripcion)
+                            </a>
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.UnidadesVendidas)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td class="align-middle text-center">
+                            @Html.DisplayFor(modelItem => item.FacturacionArticulos.NoFactura)
+                        </td>
+                        <td class="align-middle text-end">
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.LineaFacturaId">
+                                <i class="bi bi-trash3 h5"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
