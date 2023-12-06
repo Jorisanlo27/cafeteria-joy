@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <h1>Detalles</h1>
     <div>
-        <a class="btn btn-outline-primary" asp-controller="Lineafacturas" asp-action="Create">
+        <a class="btn btn-outline-primary" asp-controller="Lineafacturas" asp-action="Create" asp-route-id="@Model.FacturacionArticulosId">
             <i class="bi bi-plus-circle h5"></i>
             &nbsp;
             Agregar Articulo
@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="d-flex">
-    <div style="width: 20%; margin-right: 4%">
+    <div style="width: 25%; margin-right: 4%">
         <h4>Facturacion Artículo</h4>
         <hr />
         <dl class="row">
@@ -76,9 +76,17 @@
                 @foreach (var item in Model.Lineafacturas)
                 {
                     <tr class="text-center border-bottom border-secondary">
-                        <td>@item.Articulo.Descripcion</td>
+                        <td><a asp-action="Edit" asp-controller="Lineafacturas" asp-route-id="@item.LineaFacturaId" asp-route-idFactura="@item.FacturacionArticulosId">@item.Articulo.Descripcion</a></td>
                         <td>@item.UnidadesVendidas</td>
                         <td>$@item.Articulo.Costo</td>
+                        <td>
+                            <form asp-action="Delete" asp-controller="Lineafacturas" asp-route-id="@item.LineaFacturaId">
+                                <input type="hidden" asp-for="@item.LineaFacturaId" />
+                                <button type="submit" value="Eliminar" class="btn btn-danger">
+                                    <i class="bi bi-trash3 h6"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </table>

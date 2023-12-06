@@ -46,10 +46,10 @@ namespace cafeteria_joy.Controllers
         }
 
         // GET: Lineafacturas/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion");
-            ViewData["FacturacionArticulosId"] = new SelectList(_context.Facturacionarticulos, "FacturacionArticulosId", "NoFactura");
+            ViewData["FacturacionArticulosId"] = id;
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace cafeteria_joy.Controllers
         }
 
         // GET: Lineafacturas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int? idFactura)
         {
             if (id == null || _context.Lineafacturas == null)
             {
@@ -86,7 +86,7 @@ namespace cafeteria_joy.Controllers
                 return NotFound();
             }
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion", lineafactura.ArticuloId);
-            ViewData["FacturacionArticulosId"] = new SelectList(_context.Facturacionarticulos, "FacturacionArticulosId", "NoFactura", lineafactura.FacturacionArticulosId);
+            ViewData["FacturacionArticulosId"] = idFactura;
             return View(lineafactura);
         }
 
@@ -120,7 +120,7 @@ namespace cafeteria_joy.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToRoute(new { controller = "facturacionarticulos", action = "Details", id = lineafactura.FacturacionArticulosId });
             }
             ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion", lineafactura.ArticuloId);
             ViewData["FacturacionArticulosId"] = new SelectList(_context.Facturacionarticulos, "FacturacionArticulosId", "NoFactura", lineafactura.FacturacionArticulosId);
@@ -163,7 +163,8 @@ namespace cafeteria_joy.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToRoute(new { controller = "facturacionarticulos", action = "Details", id = lineafactura.FacturacionArticulosId });
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool LineafacturaExists(int id)

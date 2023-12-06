@@ -6,15 +6,19 @@
 
 <div class="container p-3">
     <div class="row pt-4">
-        <div class="col-6 d-flex align-items-center">
+        <div class="col-10 d-flex align-items-center">
             <i class="bi bi-receipt h2" style="color: #1558a0;"></i>
             <h2 class="ms-3">Facturación Artículos</h2>
         </div>
-        <div class="col-6 text-end">
-            <a class="btn btn-outline-primary" asp-action="Create">
+        <div class="col-2 text-end d-flex justify-content-evenly align-items-center">
+            <a class="btn btn-outline-primary" asp-action="Create" class="mr-3">
                 <i class="bi bi-plus-circle h5"></i>
                 &nbsp;
                 New
+            </a>
+            <a asp-controller="Facturacionarticulos"
+               asp-action="ImprimirVenta">
+                <img src="~/img/pdf-logo.png" width="30px" alt="" />
             </a>
         </div>
     </div>
@@ -52,10 +56,9 @@
                 {
                     <tr style="height: 60px">
                         <td style="width: 30%;" class="align-middle">
-
-                            <a asp-action="Edit" asp-route-id="@item.FacturacionArticulosId">
+                            <a asp-action="Details" asp-route-id="@item.FacturacionArticulosId">
                                 @Html.DisplayFor(modelItem => item.NoFactura)
-                           </a>
+                            </a>
                         </td>
                         <td class="align-middle text-center">
                             @Html.DisplayFor(modelItem => item.Cliente)
@@ -81,11 +84,6 @@
                             {
                                 <i class="bi bi-x-square-fill text-danger h3"></i>
                             }
-                        </td>
-                        <td class="align-middle text-end">
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FacturacionArticulosId">
-                              <i class="bi bi-trash3 h5"></i>
-                            </a>
                         </td>
                     </tr>
                 }
