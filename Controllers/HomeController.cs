@@ -1,6 +1,8 @@
 ﻿using cafeteria_joy.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace cafeteria_joy.Controllers
@@ -8,16 +10,22 @@ namespace cafeteria_joy.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly JoyContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        //private readonly ILogger<HomeController> _logger;
+
+        public HomeController(JoyContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ViewBag.Marcas = _context.Marcas.Where(m => m.Estado == true).ToList().Count();
+            ViewBag.Articulos = _context.Articulos.Where(m => m.Estado == true).ToList().Count();
+            ViewBag.Empleados = _context.Empleados.Where(m => m.Estado == true).ToList().Count();
+            ViewBag.Ordenes = _context.Facturacionarticulos.Where(m => m.Estado == true).ToList().Count();
+            return View(await _context.Facturacionarticulos.Include(f => f.Lineafacturas).ToListAsync());
         }
 
         public IActionResult Privacy()
