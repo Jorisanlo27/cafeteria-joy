@@ -21,7 +21,9 @@ namespace cafeteria_joy.Controllers
         public IActionResult ImprimirVenta()
         {
             var modelo = _context.Facturacionarticulos
-               .Include(f => f.EmpleadoNavigation);
+               .Include(f => f.EmpleadoNavigation)
+               .Where(f => f.Estado == true)
+               .ToList();
 
             return new ViewAsPdf("ImprimirVenta", modelo)
             {
@@ -61,7 +63,7 @@ namespace cafeteria_joy.Controllers
         // GET: Facturacionarticulos/Create
         public IActionResult Create()
         {
-            ViewData["Empleado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre");
+            ViewData["Empleado"] = new SelectList(_context.Empleados.Where(e => e.Estado == true), "EmpleadosId", "Nombre");
             return View();
         }
 
@@ -99,7 +101,7 @@ namespace cafeteria_joy.Controllers
             {
                 return NotFound();
             }
-            ViewData["Empleado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre", facturacionarticulo.Empleado);
+            ViewData["Empleado"] = new SelectList(_context.Empleados.Where(e => e.Estado == true), "EmpleadosId", "Nombre", facturacionarticulo.Empleado);
             return View(facturacionarticulo);
         }
 
@@ -135,7 +137,7 @@ namespace cafeteria_joy.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Empleado"] = new SelectList(_context.Empleados, "EmpleadosId", "Nombre", facturacionarticulo.Empleado);
+            ViewData["Empleado"] = new SelectList(_context.Empleados.Where(e => e.Estado == true), "EmpleadosId", "Nombre", facturacionarticulo.Empleado);
             return View(facturacionarticulo);
         }
 
@@ -172,14 +174,14 @@ namespace cafeteria_joy.Controllers
             {
                 _context.Facturacionarticulos.Remove(facturacionarticulo);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FacturacionarticuloExists(int id)
         {
-          return (_context.Facturacionarticulos?.Any(e => e.FacturacionArticulosId == id)).GetValueOrDefault();
+            return (_context.Facturacionarticulos?.Any(e => e.FacturacionArticulosId == id)).GetValueOrDefault();
         }
     }
 }

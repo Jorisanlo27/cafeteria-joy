@@ -48,7 +48,7 @@ namespace cafeteria_joy.Controllers
         // GET: Lineafacturas/Create
         public IActionResult Create(int? id)
         {
-            ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion");
+            ViewData["ArticuloId"] = new SelectList(_context.Articulos.Where(a => a.Estado == true), "ArticuloId", "Descripcion");
             ViewData["FacturacionArticulosId"] = id;
             return View();
         }
@@ -85,7 +85,7 @@ namespace cafeteria_joy.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion", lineafactura.ArticuloId);
+            ViewData["ArticuloId"] = new SelectList(_context.Articulos.Where(a => a.Estado == true), "ArticuloId", "Descripcion", lineafactura.ArticuloId);
             ViewData["FacturacionArticulosId"] = idFactura;
             return View(lineafactura);
         }
@@ -122,8 +122,8 @@ namespace cafeteria_joy.Controllers
                 }
                 return RedirectToRoute(new { controller = "facturacionarticulos", action = "Details", id = lineafactura.FacturacionArticulosId });
             }
-            ViewData["ArticuloId"] = new SelectList(_context.Articulos, "ArticuloId", "Descripcion", lineafactura.ArticuloId);
-            ViewData["FacturacionArticulosId"] = new SelectList(_context.Facturacionarticulos, "FacturacionArticulosId", "NoFactura", lineafactura.FacturacionArticulosId);
+            ViewData["ArticuloId"] = new SelectList(_context.Articulos.Where(a => a.Estado == true), "ArticuloId", "Descripcion", lineafactura.ArticuloId);
+            ViewData["FacturacionArticulosId"] = lineafactura.FacturacionArticulosId;
             return View(lineafactura);
         }
 
@@ -164,7 +164,6 @@ namespace cafeteria_joy.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToRoute(new { controller = "facturacionarticulos", action = "Details", id = lineafactura.FacturacionArticulosId });
-            //return RedirectToAction(nameof(Index));
         }
 
         private bool LineafacturaExists(int id)
