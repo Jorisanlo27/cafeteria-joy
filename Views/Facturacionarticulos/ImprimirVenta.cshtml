@@ -4,89 +4,217 @@
 }
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ImprimirVenta</title>
-   
+    <meta charset="utf-8">
+    <title>Example 1</title>
+    <style>
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        a {
+            color: #5D6975;
+            text-decoration: underline;
+        }
+
+        body {
+            position: relative;
+            width: 21cm;
+            height: 29.7cm;
+            margin: 0 auto;
+            color: #001028;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-family: Arial;
+        }
+
+        header {
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        #logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+            #logo img {
+                width: 90px;
+            }
+
+        h1 {
+            border-top: 1px solid #5D6975;
+            border-bottom: 1px solid #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;
+            background: url(dimension.png);
+        }
+
+        #project {
+            float: left;
+        }
+
+            #project span {
+                color: #5D6975;
+                text-align: right;
+                width: 52px;
+                margin-right: 10px;
+                display: inline-block;
+                font-size: 0.8em;
+            }
+
+        #company {
+            float: right;
+            text-align: right;
+        }
+
+            #project div,
+            #company div {
+                white-space: nowrap;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+            table tr:nth-child(2n-1) td {
+                background: #F5F5F5;
+            }
+
+            table th,
+            table td {
+                text-align: center;
+            }
+
+            table th {
+                padding: 5px 20px;
+                color: #5D6975;
+                border-bottom: 1px solid #C1CED9;
+                white-space: nowrap;
+                font-weight: normal;
+            }
+
+            table .service,
+            table .desc {
+                text-align: left;
+            }
+
+            table td {
+                padding: 20px;
+                text-align: right;
+            }
+
+                table td.service,
+                table td.desc {
+                    vertical-align: top;
+                }
+
+                table td.unit,
+                table td.qty,
+                table td.total {
+                    font-size: 1.2em;
+                }
+
+                table td.grand {
+                    border-top: 1px solid #5D6975;
+                }
+
+        #notices .notice {
+            color: #5D6975;
+            font-size: 1.2em;
+        }
+
+        footer {
+            color: #5D6975;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #C1CED9;
+            padding: 8px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-
-    <div class="contenedor">
-
-        <table class="table datatable">
+    <header class="clearfix">
+        <div id="logo">
+            <img src="~/img/java.png">
+        </div>
+        <h1>Cafetería JOY</h1>
+        <div id="company" class="clearfix">
+            <div>Universidad APEC, Av. Máximo Gómez #72,<br /> Santo Domingo, República Dominicana</div>
+            <div>(809) 519-0450</div>
+            <div><a href="mailto:jorgersantana27@gmail.com">jorgersantana27@gmail.com</a></div>
+        </div>
+    </header>
+    <main>
+        <table>
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.NoFactura)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Cliente)
+                        @Html.DisplayNameFor(model => model.EmpleadoNavigation)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FechaVenta)
+                        @Html.DisplayNameFor(model => model.Cliente)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Total)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.FechaVenta)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Comentario)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Estado)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmpleadoNavigation)
-                    </th>
-                    
+                    </th>                    
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr style="height: 60px">
-                        <td style="width: 30%;" class="align-middle">
-
-                            <a asp-action="Edit" asp-route-id="@item.FacturacionArticulosId">
+                    <tr style="height: 50px; text-align:center;" >
+                        <td style="width: 30%; text-align:center; vertical-align:middle;">
+                            <a asp-action="Details" asp-route-id="@item.FacturacionArticulosId">
                                 @Html.DisplayFor(modelItem => item.NoFactura)
                             </a>
                         </td>
-                        <td class="align-middle text-center">
+                        <td style="text-align:center; vertical-align:middle;">
                             @Html.DisplayFor(modelItem => item.Cliente)
                         </td>
-                        <td class="align-middle text-center">
-                            @Html.DisplayFor(modelItem => item.FechaVenta)
-                        </td>
-                        <td class="align-middle text-center">
-                            @Html.DisplayFor(modelItem => item.Total)
-                        </td>
-                        <td class="align-middle text-center">
-                            @Html.DisplayFor(modelItem => item.Comentario)
-                        </td>
-                        <td class="align-middle text-center">
-                            @if (item.Estado)
-                            {
-                                <i class="bi bi-check-square-fill text-success h3"></i>
-                            }
-                            else
-                            {
-                                <i class="bi bi-x-square-fill text-danger h3"></i>
-                            }
-                        </td>
-                        <td class="align-middle text-center">
+                        <td style="text-align:center; vertical-align:middle;">
                             @Html.DisplayFor(modelItem => item.EmpleadoNavigation.Nombre)
                         </td>
-                        
+                        <td style="text-align:center; vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td style="text-align:center; vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.FechaVenta)
+                        </td>
+                        <td style="text-align:center; vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        </td> 
                     </tr>
                 }
+                
+
             </tbody>
         </table>
-                
-                
         
-
-    </div>
-
+    </main>
+   
 </body>
 </html>
